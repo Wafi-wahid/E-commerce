@@ -1,0 +1,164 @@
+body {
+  font-family: sans-serif;
+  margin: 0;
+  background: #f3f3f3;
+}
+
+header {
+  background: #222;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+.header-buttons {
+  margin-top: 1rem;
+}
+
+.header-buttons button {
+  margin: 0 0.5rem;
+  padding: 0.5rem 1rem;
+  background: #444;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+main {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product-card {
+  background: #fff;
+  border-radius: 12px;
+  width: 300px;
+  padding: 1rem;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.product-img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product-info {
+  margin-top: 1rem;
+}
+
+.product-info h3 {
+  margin: 0;
+}
+
+.product-info p {
+  margin: 0.5rem 0;
+}
+
+.product-card button {
+  margin-top: 0.5rem;
+  background: #222;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.button-style {
+  margin-top: 0.5rem;
+  background: #222;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: black;
+  color: white;
+  border: none;
+  padding: 5px;
+  font-size: 0.8rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: rgb(220, 14, 14);
+}
+
+.cart,
+.admin-panel {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 600px;
+  margin: 1rem auto;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+
+  /* Center inner content */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+input,
+select {
+  padding: 0.5rem;
+  margin: 0.5rem 0;
+  width: 80%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0;
+}
+
+.qty-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.qty-controls button {
+  padding: 2px 8px;
+  font-size: 1rem;
+  background-color: #ddd;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.variant-buttons {
+  margin: 0.5rem 0;
+}
+
+.variant-buttons button {
+  margin-right: 5px;
+  padding: 5px 10px;
+  border: 1px solid #ccc;
+  background: #6b6969;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background 0.3s;
+}
+
+.variant-buttons button:hover {
+  background: #ddd;
+}

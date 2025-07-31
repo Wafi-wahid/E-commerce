@@ -1,0 +1,54 @@
+[
+  {
+    "name": "The Devil",
+    "price": 375,
+    "rating": "4.6/5",
+    "image": "https://i.pinimg.com/1200x/2b/dc/f8/2bdcf89b23f2b18df1e155dff773fffa.jpg",
+    "variant": {
+      "Red": "https://i.pinimg.com/1200x/2b/dc/f8/2bdcf89b23f2b18df1e155dff773fffa.jpg",
+      "Baige": "https://i.pinimg.com/736x/3b/d5/88/3bd588945b5a7f48657de4816f5e8bff.jpg"
+    }
+  },
+  {
+    "name": "The Wanderer",
+    "price": 420,
+    "rating": "4.8/5",
+    "image": "https://i.pinimg.com/1200x/49/6d/b5/496db5ef36054fdf1ab722fcf7faef0a.jpg",
+    "variant": {
+      "Black": "https://i.pinimg.com/1200x/49/6d/b5/496db5ef36054fdf1ab722fcf7faef0a.jpg",
+      "Gray": "https://i.pinimg.com/1200x/bd/e0/76/bde0766ee34c70b6fd6c3515f324e819.jpg"
+    }
+  },
+  {
+    "name": "The Classic",
+    "price": 310,
+    "rating": "4.5/5 ",
+    "image": "https://i.pinimg.com/736x/7d/1a/04/7d1a048481017b7f6cf5a838e15df641.jpg",
+    "variant": {
+      "Purple": "https://i.pinimg.com/736x/7d/1a/04/7d1a048481017b7f6cf5a838e15df641.jpg",
+      "Pink": "https://i.pinimg.com/1200x/27/30/9e/27309eccd3a2ca1ede9c978984d552e3.jpg",
+      "Black": "https://i.pinimg.com/736x/a1/75/d3/a175d37fcea3b9e96e691988944088f0.jpg"
+    }
+  },
+  {
+    "name": "The Princess",
+    "price": 10000,
+    "rating": "5/5 ",
+    "image": "https://i.pinimg.com/1200x/72/9a/d9/729ad9b8b658bea97af1b734bd955245.jpg",
+    "variant": {
+      "Pink": "https://i.pinimg.com/1200x/72/9a/d9/729ad9b8b658bea97af1b734bd955245.jpg",
+      "White": "https://i.pinimg.com/736x/54/e2/52/54e252cec7b889c22e877109ec27ae8b.jpg"
+    }
+  },
+  {
+    "name": "The Princess",
+    "price": 10000,
+    "rating": "5/5 ",
+    "image": "https://i.pinimg.com/1200x/63/16/38/6316389d49641759e45266e99c577a52.jpg",
+    "variant": {
+      "Green": "https://i.pinimg.com/1200x/63/16/38/6316389d49641759e45266e99c577a52.jpg",
+      "Brown": "https://i.pinimg.com/1200x/93/66/67/936667038daeaf7f4bf4d66a8e3b69fb.jpg",
+      "Gray": "https://i.pinimg.com/1200x/0c/62/9f/0c629f5220305c91ccd8b22d3348fe4a.jpg"
+    }
+  }
+]

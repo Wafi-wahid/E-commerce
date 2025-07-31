@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Skyler Store</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1><i class="fas fa-shopping-bag"></i> The Skyler Store</h1>
+
+      <div class="header-buttons">
+        <button onclick="toggleCart()">
+          <i class="fas fa-shopping-cart"></i> Cart
+        </button>
+
+        <button id="admin-toggle-btn" onclick="promptPassword()">
+          <i class="fas fa-cogs"></i> Admin Panel
+        </button>
+      </div>
+    </header>
+
+    <main id="product-list"></main>
+
+    <!-- Cart Pannel-->
+    <div class="cart" id="cart-section" style="display: none">
+      <h2><i class="fas fa-shopping-cart"></i> Your Cart</h2>
+
+      <div id="cart-items"></div>
+      <button class="button-style" onclick="checkout()">Checkout</button>
+    </div>
+
+    <!-- Admin Pannel-->
+    <div class="admin-panel" id="admin-panel" style="display: none">
+      <h2><i class="fas fa-cogs"></i> Admin Panel</h2>
+
+      <form id="admin-form">
+        <input type="text" id="name" placeholder="Product Name" required />
+        <input type="number" id="price" placeholder="Price" required />
+        <input
+          type="text"
+          id="rating"
+          placeholder="Rating (e.g., 4.6/5)"
+          required
+        />
+        <input type="text" id="image" placeholder="Image URL" required />
+        <select id="variant">
+          <option value="brown">Brown</option>
+          <option value="black">Black</option>
+          <option value="green">Green</option>
+          <option value="blue">Blue</option>
+        </select>
+        <br />
+        <button class="button-style" type="submit">Add Product</button>
+      </form>
+    </div>
+
+    <div
+      id="password-popup"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #00000080;
+        justify-content: center;
+        align-items: center;
+      "
+    >
+      <div style="background: #fff; padding: 2rem; border-radius: 10px">
+        <h3>Enter Admin Password</h3>
+        <p>password: admin123</p>
+        <input type="password" id="admin-password" placeholder="Password" />
+        <button class="button-style" onclick="checkPassword()">Submit</button>
+        <button class="button-style" onclick="closePasswordPopup()">
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const ADMIN_PASS = "admin123"; // set your password here
+
+      function promptPassword() {
+        document.getElementById("password-popup").style.display = "flex";
+      }
+
+      function checkPassword() {
+        const pass = document.getElementById("admin-password").value;
+        if (pass === ADMIN_PASS) {
+          closePasswordPopup();
+          toggleAdmin();
+        } else {
+          alert("Incorrect password!");
+        }
+      }
+
+      function closePasswordPopup() {
+        document.getElementById("password-popup").style.display = "none";
+        document.getElementById("admin-password").value = "";
+      }
+    </script>
+    <script src="main.js"></script>
+  </body>
+</html>
