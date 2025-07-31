@@ -50,5 +50,15 @@
       "Brown": "https://i.pinimg.com/1200x/93/66/67/936667038daeaf7f4bf4d66a8e3b69fb.jpg",
       "Gray": "https://i.pinimg.com/1200x/0c/62/9f/0c629f5220305c91ccd8b22d3348fe4a.jpg"
     }
+  },
+  {
+    "name": "The Princess",
+    "price": 10000,
+    "rating": "5/5 ",
+    "image": "https://i.pinimg.com/1200x/72/9a/d9/729ad9b8b658bea97af1b734bd955245.jpg",
+    "variant": {
+      "Pink": "https://i.pinimg.com/1200x/72/9a/d9/729ad9b8b658bea97af1b734bd955245.jpg",
+      "White": "https://i.pinimg.com/736x/54/e2/52/54e252cec7b889c22e877109ec27ae8b.jpg"
+    }
   }
 ]
