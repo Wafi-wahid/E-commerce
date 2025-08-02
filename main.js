@@ -127,8 +127,8 @@ function toggleAdmin() {
   document.getElementById("cart-section").style.display = "none";
 
   document.getElementById("admin-toggle-btn").innerText = adminVisible
-    ? "📦 Products"
-    : "⚙️ Admin Panel";
+    ? " Products"
+    : " Admin Panel";
   renderProducts();
 }
 
@@ -144,7 +144,7 @@ function toggleCart() {
     ? "none"
     : "flex";
 
-  document.getElementById("admin-toggle-btn").innerText = "⚙️ Admin Panel";
+  document.getElementById("admin-toggle-btn").innerText = " Admin Panel";
 }
 
 document.getElementById("admin-form").addEventListener("submit", function (e) {
@@ -266,3 +266,44 @@ document.querySelector(".left-btn").addEventListener("click", () => {
 document.querySelector(".right-btn").addEventListener("click", () => {
   carousel.scrollLeft += 300;
 });
+
+function showSection(sectionId) {
+  document.querySelectorAll(".main-section").forEach((sec) => {
+    sec.classList.remove("active");
+  });
+
+  document.getElementById(sectionId).classList.add("active");
+
+  // Hide/show the featured section
+  const featuredSection = document.getElementById("highlighted-products");
+  if (sectionId === "product-list") {
+    featuredSection.style.display = "block";
+  } else {
+    featuredSection.style.display = "none";
+  }
+
+  // Optional: reset admin/cart states
+  adminVisible = sectionId === "admin-panel";
+  cartVisible = sectionId === "cart-section";
+
+  document.getElementById("admin-toggle-btn").innerText = adminVisible
+    ? " Products"
+    : " Admin Panel";
+
+  renderProducts();
+  renderCart();
+}
+
+function showHome() {
+  // Hide all sections
+  document.getElementById("admin-panel").style.display = "none";
+  document.getElementById("cart-section").style.display = "none";
+
+  // Show featured sections
+  document.getElementById("highlighted-products").style.display = "block";
+
+  // Reset admin/cart flags and button text
+  adminVisible = false;
+  cartVisible = false;
+  document.getElementById("admin-toggle-btn").innerText = "⚙️ Admin Panel";
+}

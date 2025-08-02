@@ -15,6 +15,7 @@
     <header>
       <h1><i class="fas fa-shopping-bag"></i> The Skyler Store</h1>
       <div class="header-buttons">
+        <button onclick="showHome()"><i class="fas fa-home"></i> Home</button>
         <button onclick="showAllProducts()">
           <i class="fas fa-box"></i> Products
         </button>
@@ -41,29 +42,31 @@
       </div>
     </section>
 
-    <!-- Hottest Picks -->
-    <section class="hottest-picks fade-in">
-      <h2>🔥 Hottest Picks</h2>
-      <div id="hottest-picks" class="product-row"></div>
-    </section>
+    <div id="highlighted-products">
+      <!-- Hottest Picks -->
+      <section class="hottest-picks fade-in">
+        <h2>| Hottest Picks |</h2>
+        <div id="hottest-picks" class="product-row"></div>
+      </section>
 
-    <!-- Luxury Carousel -->
-    <section class="carousel slide-up">
-      <h2>💼 Luxury Collection</h2>
-      <div class="carousel-container">
-        <button class="carousel-btn left-btn">
-          <i class="fas fa-chevron-left"></i>
-        </button>
-        <div class="luxury-carousel" id="luxury-carousel"></div>
-        <button class="carousel-btn right-btn">
-          <i class="fas fa-chevron-right"></i>
-        </button>
-      </div>
-    </section>
+      <!-- Luxury Carousel -->
+      <section class="carousel slide-up">
+        <h2>| Luxury Collection |</h2>
+        <div class="carousel-container">
+          <button class="carousel-btn left-btn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <div class="luxury-carousel" id="luxury-carousel"></div>
+          <button class="carousel-btn right-btn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
+        </div>
+      </section>
+    </div>
 
     <!-- All Products -->
     <section class="all-products slide-up">
-      <h2 style="text-align: center">🛍️ All Products</h2>
+      <h2 style="text-align: center">| All Products |</h2>
     </section>
     <main id="product-list"></main>
 
@@ -138,6 +141,16 @@
       </div>
     </div>
 
+    <footer class="site-footer">
+      <div class="footer-content">
+        <p>&copy; 2025 Skyler Store. All rights reserved.</p>
+        <div class="socials">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+        </div>
+      </div>
+    </footer>
     <script>
       const ADMIN_PASS = "admin123"; // set your password here
 

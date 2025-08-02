@@ -378,3 +378,52 @@ section:nth-child(3) {
   transform: scale(1.05);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
+
+#highlighted-products {
+  display: none;
+}
+
+#highlighted-products.show {
+  display: block;
+}
+
+#highlighted-products {
+  transition: all 0.4s ease;
+  opacity: 1;
+}
+
+#highlighted-products.hidden {
+  opacity: 0;
+  pointer-events: none;
+  height: 0;
+  overflow: hidden;
+}
+
+.site-footer {
+  background-color: #111;
+  color: #ccc;
+  padding: 1rem 2rem;
+  text-align: center;
+  font-size: 0.875rem;
+  margin-top: 2rem;
+  border-top: 1px solid #333;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-content .socials a {
+  color: #ccc;
+  margin: 0 0.5rem;
+  text-decoration: none;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.footer-content .socials a:hover {
+  color: #fff;
+}
