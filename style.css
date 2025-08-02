@@ -427,3 +427,32 @@ section:nth-child(3) {
 .footer-content .socials a:hover {
   color: #fff;
 }
+
+.nav-btn.active {
+  background-color: #008cba;
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid #006b95;
+}
+
+.popup {
+  position: fixed;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #111;
+  color: #fff;
+  padding: 1rem 2rem;
+  border-radius: 12px;
+  display: none;
+  z-index: 9999;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.popup button {
+  background: #f90;
+  border: none;
+  margin-top: 10px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+}

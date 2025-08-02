@@ -14,15 +14,22 @@
     <!-- Header Pannel-->
     <header>
       <h1><i class="fas fa-shopping-bag"></i> The Skyler Store</h1>
+
       <div class="header-buttons">
-        <button onclick="showHome()"><i class="fas fa-home"></i> Home</button>
-        <button onclick="showAllProducts()">
+        <button class="nav-btn" onclick="showHome()" id="home-btn">
+          <i class="fas fa-home"></i> Home
+        </button>
+        <button class="nav-btn" onclick="showAllProducts()" id="products-btn">
           <i class="fas fa-box"></i> Products
         </button>
-        <button onclick="toggleCart()">
+        <button class="nav-btn" onclick="toggleCart()" id="cart-btn">
           <i class="fas fa-shopping-cart"></i> Cart
         </button>
-        <button id="admin-toggle-btn" onclick="promptPassword()">
+        <button
+          class="nav-btn"
+          id="admin-toggle-btn"
+          onclick="promptPassword()"
+        >
           <i class="fas fa-cogs"></i> Admin Panel
         </button>
       </div>
@@ -141,6 +148,10 @@
       </div>
     </div>
 
+    <div id="custom-popup" class="popup">
+      <p id="popup-message"></p>
+      <button onclick="closePopup()">Close</button>
+    </div>
     <footer class="site-footer">
       <div class="footer-content">
         <p>&copy; 2025 Skyler Store. All rights reserved.</p>
@@ -151,6 +162,7 @@
         </div>
       </div>
     </footer>
+
     <script>
       const ADMIN_PASS = "admin123"; // set your password here
 

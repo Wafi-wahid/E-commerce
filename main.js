@@ -100,18 +100,14 @@ function addToCart(index) {
 function checkout() {
   if (cart.length === 0) return alert("Cart is empty!");
   const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
-  alert(`Order placed! Total: $${total}`);
+  showPopup(`Order placed! Total: $${total}`);
   cart = [];
   saveData();
   renderCart();
 }
 
 function deleteProduct(index) {
-  if (confirm("Are you sure you want to delete this product?")) {
-    products.splice(index, 1);
-    saveData();
-    renderProducts();
-  }
+  if (cart.length === 0) return showPopup("Cart is empty!");
 }
 
 function toggleAdmin() {
@@ -126,9 +122,6 @@ function toggleAdmin() {
     : "flex";
   document.getElementById("cart-section").style.display = "none";
 
-  document.getElementById("admin-toggle-btn").innerText = adminVisible
-    ? " Products"
-    : " Admin Panel";
   renderProducts();
 }
 
@@ -194,7 +187,7 @@ function showAllProducts() {
   document.getElementById("admin-panel").style.display = "none";
   document.getElementById("cart-section").style.display = "none";
   document.getElementById("product-list").style.display = "flex";
-  document.getElementById("admin-toggle-btn").innerText = "⚙️ Admin Panel";
+  document.getElementById("admin-toggle-btn").innerText = "Admin Panel";
   renderProducts();
 }
 
@@ -305,5 +298,22 @@ function showHome() {
   // Reset admin/cart flags and button text
   adminVisible = false;
   cartVisible = false;
-  document.getElementById("admin-toggle-btn").innerText = "⚙️ Admin Panel";
+  document.getElementById("admin-toggle-btn").innerText = " Admin Panel";
+}
+
+function setActive(buttonId) {
+  const buttons = document.querySelectorAll(".nav-btn");
+  buttons.forEach((btn) => btn.classList.remove("active"));
+
+  const activeBtn = document.getElementById(buttonId);
+  if (activeBtn) activeBtn.classList.add("active");
+}
+
+function showPopup(message) {
+  document.getElementById("popup-message").innerText = message;
+  document.getElementById("custom-popup").style.display = "block";
+}
+
+function closePopup() {
+  document.getElementById("custom-popup").style.display = "none";
 }
