@@ -434,25 +434,38 @@ section:nth-child(3) {
   font-weight: bold;
   border: 1px solid #006b95;
 }
-
-.popup {
+.popup-overlay {
   position: fixed;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #111;
-  color: #fff;
-  padding: 1rem 2rem;
-  border-radius: 12px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
   display: none;
+  justify-content: center;
+  align-items: center;
   z-index: 9999;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
-.popup button {
-  background: #f90;
-  border: none;
+
+.popup-overlay.show {
+  display: flex;
+}
+
+.popup-box {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  min-width: 250px;
+}
+
+.popup-close-btn {
   margin-top: 10px;
-  padding: 6px 12px;
-  border-radius: 6px;
+  background: #111;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
   cursor: pointer;
 }

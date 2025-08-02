@@ -148,10 +148,6 @@
       </div>
     </div>
 
-    <div id="custom-popup" class="popup">
-      <p id="popup-message"></p>
-      <button onclick="closePopup()">Close</button>
-    </div>
     <footer class="site-footer">
       <div class="footer-content">
         <p>&copy; 2025 Skyler Store. All rights reserved.</p>
@@ -162,6 +158,12 @@
         </div>
       </div>
     </footer>
+    <div id="custom-popup" class="popup-overlay">
+      <div class="popup-box">
+        <p id="popup-message">This is a popup</p>
+        <button onclick="closePopup()" class="popup-close-btn">Close</button>
+      </div>
+    </div>
 
     <script>
       const ADMIN_PASS = "admin123"; // set your password here

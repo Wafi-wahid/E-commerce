@@ -107,7 +107,10 @@ function checkout() {
 }
 
 function deleteProduct(index) {
-  if (cart.length === 0) return showPopup("Cart is empty!");
+  products.splice(index, 1);
+  saveData();
+  renderProducts();
+  showPopup("Product deleted successfully!");
 }
 
 function toggleAdmin() {
@@ -310,10 +313,15 @@ function setActive(buttonId) {
 }
 
 function showPopup(message) {
+  const popup = document.getElementById("custom-popup");
   document.getElementById("popup-message").innerText = message;
-  document.getElementById("custom-popup").style.display = "block";
+  popup.classList.add("show");
+
+  setTimeout(() => {
+    popup.classList.remove("show");
+  }, 3000); // Auto-hide after 3s
 }
 
 function closePopup() {
-  document.getElementById("custom-popup").style.display = "none";
+  document.getElementById("custom-popup").classList.remove("show");
 }
