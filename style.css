@@ -27,8 +27,8 @@ header {
 
 main {
   display: flex;
-  gap: 2rem;
-  padding: 2rem;
+  gap: 1rem;
+  padding: 1rem;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -36,12 +36,38 @@ main {
 .product-card {
   background: #fff;
   border-radius: 12px;
-  width: 300px;
   padding: 1rem;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
   position: relative;
+  width: 100%; /* full width by default (mobile) */
+  max-width: 350px; /* base size */
+  flex: 1 1 100px;
 }
 
+@media (min-width: 768px) {
+  .product-card {
+    max-width: 400px;
+    height: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-card {
+    width: 300px; /* ✅ Fixed width */
+    max-width: none; /* ✅ Remove max-width limit */
+    flex: 0 0 auto; /* ✅ No stretching */
+  }
+}
+
+@media (min-width: 1440px) {
+  .product-card {
+    max-width: 600px;
+  }
+}
+.product-card:hover {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
 .product-img {
   width: 100%;
   height: 200px;
@@ -84,20 +110,19 @@ main {
   position: absolute;
   top: 10px;
   right: 10px;
-  background: black;
+  background-color: black; /* Default color */
   color: white;
   border: none;
-  padding: 5px;
+  padding: 5px 10px;
   font-size: 0.8rem;
   border-radius: 4px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background-color 0.3s ease;
 }
 
 .delete-btn:hover {
-  background: rgb(220, 14, 14);
+  background-color: red; /* Hover color */
 }
-
 .cart,
 .admin-panel {
   background: #fff;
@@ -161,4 +186,195 @@ select {
 
 .variant-buttons button:hover {
   background: #ddd;
+}
+
+.variant-input {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 0.5rem;
+}
+.variant-input input {
+  flex: 1;
+}
+
+.hero-slider {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 4px solid #ccc;
+}
+
+.slider-track {
+  display: flex;
+  width: 50%; /* assuming 3 images; adjust accordingly */
+  animation: slideHero 12s infinite ease-in-out;
+}
+
+.hero-img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+/* Animation */
+@keyframes slideHero {
+  0%,
+  10% {
+    transform: translateX(0%);
+  }
+  14%,
+  24% {
+    transform: translateX(-100%);
+  }
+  28%,
+  38% {
+    transform: translateX(-200%);
+  }
+  42%,
+  52% {
+    transform: translateX(-300%);
+  }
+  56%,
+  66% {
+    transform: translateX(-400%);
+  }
+  70%,
+  80% {
+    transform: translateX(-500%);
+  }
+  84%,
+  94% {
+    transform: translateX(-600%);
+  }
+  100% {
+    transform: translateX(0%);
+  }
+}
+
+.hottest-picks,
+.carousel {
+  padding: 2rem;
+  text-align: center;
+}
+.product-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+  margin-top: 1rem;
+}
+.carousel-wrapper {
+  overflow-x: auto;
+  white-space: nowrap;
+  scroll-snap-type: x mandatory;
+}
+.carousel-track {
+  display: inline-flex;
+  gap: 1rem;
+  padding: 1rem;
+}
+.carousel-track .product-card {
+  scroll-snap-align: start;
+  width: 250px;
+  flex-shrink: 0;
+}
+.popup {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #00000080;
+  justify-content: center;
+  align-items: center;
+}
+.popup-box {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 10px;
+}
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+.luxury-carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 1rem;
+  padding: 1rem;
+}
+.carousel-btn {
+  position: absolute;
+  top: 40%;
+  z-index: 10;
+  background-color: #fff;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.left-btn {
+  left: 0;
+}
+.right-btn {
+  right: 0;
+}
+
+/* ========== GLOBAL ANIMATIONS ========== */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease forwards;
+}
+
+.slide-up {
+  animation: slideUp 0.8s ease forwards;
+}
+
+/* Apply to sections */
+section,
+.card,
+.btn,
+header,
+footer {
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 0.2s;
+}
+
+/* Delay for staggered effect (optional) */
+section:nth-child(2) {
+  animation-delay: 0.4s;
+}
+section:nth-child(3) {
+  animation-delay: 0.6s;
+}
+
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }

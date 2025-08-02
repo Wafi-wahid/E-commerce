@@ -11,20 +11,60 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
+    <!-- Header Pannel-->
     <header>
       <h1><i class="fas fa-shopping-bag"></i> The Skyler Store</h1>
-
       <div class="header-buttons">
+        <button onclick="showAllProducts()">
+          <i class="fas fa-box"></i> Products
+        </button>
         <button onclick="toggleCart()">
           <i class="fas fa-shopping-cart"></i> Cart
         </button>
-
         <button id="admin-toggle-btn" onclick="promptPassword()">
           <i class="fas fa-cogs"></i> Admin Panel
         </button>
       </div>
     </header>
 
+    <!-- Hero Image -->
+    <section class="hero-slider slide-up">
+      <div class="slider-track">
+        <img src="./h1.jpg" alt="Hero 0" class="hero-img" />
+        <img src="./hero-1.jpg" alt="Hero 1" class="hero-img" />
+        <img src="./hero-2.jpg" alt="Hero 2" class="hero-img" />
+        <img src="./hero-3.jpg" alt="Hero 3" class="hero-img" />
+        <img src="./hero-4.jpg" alt="Hero 4" class="hero-img" />
+        <img src="./hero-5.jpg" alt="Hero 5" class="hero-img" />
+        <img src="./hero-6.jpg" alt="Hero 6" class="hero-img" />
+        <img src="./hero-7.jpg" alt="Hero 7" class="hero-img" />
+      </div>
+    </section>
+
+    <!-- Hottest Picks -->
+    <section class="hottest-picks fade-in">
+      <h2>🔥 Hottest Picks</h2>
+      <div id="hottest-picks" class="product-row"></div>
+    </section>
+
+    <!-- Luxury Carousel -->
+    <section class="carousel slide-up">
+      <h2>💼 Luxury Collection</h2>
+      <div class="carousel-container">
+        <button class="carousel-btn left-btn">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="luxury-carousel" id="luxury-carousel"></div>
+        <button class="carousel-btn right-btn">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </section>
+
+    <!-- All Products -->
+    <section class="all-products slide-up">
+      <h2 style="text-align: center">🛍️ All Products</h2>
+    </section>
     <main id="product-list"></main>
 
     <!-- Cart Pannel-->
@@ -45,18 +85,31 @@
         <input
           type="text"
           id="rating"
-          placeholder="Rating (e.g., 4.6/5)"
+          placeholder="Rating (e.g. 4.5/5)"
           required
         />
-        <input type="text" id="image" placeholder="Image URL" required />
-        <select id="variant">
-          <option value="brown">Brown</option>
-          <option value="black">Black</option>
-          <option value="green">Green</option>
-          <option value="blue">Blue</option>
-        </select>
-        <br />
-        <button class="button-style" type="submit">Add Product</button>
+
+        <div id="variant-container">
+          <div class="variant-input">
+            <input
+              type="text"
+              placeholder="Variant Color"
+              class="variant-color"
+              required
+            />
+            <input
+              type="url"
+              placeholder="Image URL"
+              class="variant-url"
+              required
+            />
+          </div>
+        </div>
+
+        <button type="button" onclick="addVariantField()">
+          ➕ Add Variant
+        </button>
+        <button type="submit">Add Product</button>
       </form>
     </div>
 

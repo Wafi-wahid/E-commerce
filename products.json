@@ -11,7 +11,7 @@
   },
   {
     "name": "The Wanderer",
-    "price": 420,
+    "price": 9000,
     "rating": "4.8/5",
     "image": "https://i.pinimg.com/1200x/49/6d/b5/496db5ef36054fdf1ab722fcf7faef0a.jpg",
     "variant": {
@@ -20,8 +20,30 @@
     }
   },
   {
+    "name": "The Elegant",
+    "price": 500,
+    "rating": "4/5 ",
+    "image": "https://i.pinimg.com/1200x/63/16/38/6316389d49641759e45266e99c577a52.jpg",
+    "variant": {
+      "Green": "https://i.pinimg.com/1200x/63/16/38/6316389d49641759e45266e99c577a52.jpg",
+      "Brown": "https://i.pinimg.com/1200x/93/66/67/936667038daeaf7f4bf4d66a8e3b69fb.jpg",
+      "Gray": "https://i.pinimg.com/1200x/0c/62/9f/0c629f5220305c91ccd8b22d3348fe4a.jpg"
+    }
+  },
+
+  {
+    "name": "The Princess",
+    "price": 10000,
+    "rating": "5/5 ",
+    "image": "https://i.pinimg.com/1200x/72/9a/d9/729ad9b8b658bea97af1b734bd955245.jpg",
+    "variant": {
+      "Pink": "https://i.pinimg.com/1200x/72/9a/d9/729ad9b8b658bea97af1b734bd955245.jpg",
+      "White": "https://i.pinimg.com/736x/54/e2/52/54e252cec7b889c22e877109ec27ae8b.jpg"
+    }
+  },
+  {
     "name": "The Classic",
-    "price": 310,
+    "price": 12000,
     "rating": "4.5/5 ",
     "image": "https://i.pinimg.com/736x/7d/1a/04/7d1a048481017b7f6cf5a838e15df641.jpg",
     "variant": {
@@ -30,35 +52,35 @@
       "Black": "https://i.pinimg.com/736x/a1/75/d3/a175d37fcea3b9e96e691988944088f0.jpg"
     }
   },
+
   {
-    "name": "The Princess",
-    "price": 10000,
+    "name": "The Shell",
+    "price": 20000,
     "rating": "5/5 ",
-    "image": "https://i.pinimg.com/1200x/72/9a/d9/729ad9b8b658bea97af1b734bd955245.jpg",
+    "image": "https://i.pinimg.com/736x/2c/90/39/2c903952f288e15e469505a2411f7cec.jpg",
     "variant": {
-      "Pink": "https://i.pinimg.com/1200x/72/9a/d9/729ad9b8b658bea97af1b734bd955245.jpg",
-      "White": "https://i.pinimg.com/736x/54/e2/52/54e252cec7b889c22e877109ec27ae8b.jpg"
+      "Pink": "https://i.pinimg.com/736x/2c/90/39/2c903952f288e15e469505a2411f7cec.jpg",
+      "White": "https://i.pinimg.com/736x/0b/ff/51/0bff51ee13f5c346011346b8a98ddf77.jpg"
     }
   },
   {
-    "name": "The Princess",
-    "price": 10000,
+    "name": "The Diamond",
+    "price": 20000,
     "rating": "5/5 ",
-    "image": "https://i.pinimg.com/1200x/63/16/38/6316389d49641759e45266e99c577a52.jpg",
+    "image": "https://img-va.myshopline.com/image/store/1724125864339/b40d637277e9786c8733ed532731ffa2_800x.jpg?w=800&h=1000&q=80",
     "variant": {
-      "Green": "https://i.pinimg.com/1200x/63/16/38/6316389d49641759e45266e99c577a52.jpg",
-      "Brown": "https://i.pinimg.com/1200x/93/66/67/936667038daeaf7f4bf4d66a8e3b69fb.jpg",
-      "Gray": "https://i.pinimg.com/1200x/0c/62/9f/0c629f5220305c91ccd8b22d3348fe4a.jpg"
+      "Pink": "https://img-va.myshopline.com/image/store/1724125864339/b40d637277e9786c8733ed532731ffa2_800x.jpg?w=800&h=1000&q=80",
+      "White": "https://img-va.myshopline.com/image/store/1724125864339/038440ab3b1f40a85e2a9393624c9fba-1.jpg?w=800&h=1000&q=80"
     }
   },
   {
-    "name": "The Princess",
-    "price": 10000,
+    "name": "The Queen",
+    "price": 50000,
     "rating": "5/5 ",
-    "image": "https://i.pinimg.com/1200x/72/9a/d9/729ad9b8b658bea97af1b734bd955245.jpg",
+    "image": "https://i.pinimg.com/736x/ca/d8/b7/cad8b7771a8944de5223a167fa8e808d.jpg",
     "variant": {
-      "Pink": "https://i.pinimg.com/1200x/72/9a/d9/729ad9b8b658bea97af1b734bd955245.jpg",
-      "White": "https://i.pinimg.com/736x/54/e2/52/54e252cec7b889c22e877109ec27ae8b.jpg"
+      "Pink": "https://i.pinimg.com/736x/ca/d8/b7/cad8b7771a8944de5223a167fa8e808d.jpg",
+      "Black": "https://i.pinimg.com/1200x/5b/e5/c3/5be5c378483e392226ddce24e27a40dc.jpg"
     }
   }
 ]

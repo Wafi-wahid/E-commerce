@@ -152,15 +152,117 @@ document.getElementById("admin-form").addEventListener("submit", function (e) {
   const name = document.getElementById("name").value;
   const price = parseFloat(document.getElementById("price").value);
   const rating = document.getElementById("rating").value;
-  const image = document.getElementById("image").value;
-  const variant = document.getElementById("variant").value;
-  products.push({ name, price, rating, image, variant });
+
+  const colorInputs = document.querySelectorAll(".variant-color");
+  const urlInputs = document.querySelectorAll(".variant-url");
+
+  const variant = {};
+  colorInputs.forEach((input, index) => {
+    const color = input.value.trim();
+    const url = urlInputs[index].value.trim();
+    if (color && url) {
+      variant[color] = url;
+    }
+  });
+
+  products.push({ name, price, rating, variant });
   saveData();
   renderProducts();
   this.reset();
+  document.getElementById("variant-container").innerHTML = `
+    <div class="variant-input">
+      <input type="text" placeholder="Variant Color" class="variant-color" required />
+      <input type="url" placeholder="Image URL" class="variant-url" required />
+    </div>
+  `;
 });
+
+function addVariantField() {
+  const container = document.getElementById("variant-container");
+  const fieldHTML = `
+    <div class="variant-input">
+      <input type="text" placeholder="Variant Color" class="variant-color" required />
+      <input type="url" placeholder="Image URL" class="variant-url" required />
+    </div>
+  `;
+  container.insertAdjacentHTML("beforeend", fieldHTML);
+}
+
+function showAllProducts() {
+  adminVisible = false;
+  cartVisible = false;
+  document.getElementById("admin-panel").style.display = "none";
+  document.getElementById("cart-section").style.display = "none";
+  document.getElementById("product-list").style.display = "flex";
+  document.getElementById("admin-toggle-btn").innerText = "⚙️ Admin Panel";
+  renderProducts();
+}
+
+function renderHottestPicks() {
+  const hottest = [...products].sort((a, b) => b.price - a.price).slice(0, 3);
+  const container = document.getElementById("hottest-picks");
+  container.innerHTML = hottest
+    .map((p, i) => {
+      const defaultColor = Object.keys(p.variant)[0];
+      const defaultImage = p.variant[defaultColor];
+      return `
+        <div class="product-card">
+          <img src="${defaultImage}" class="product-img" alt="${p.name}" />
+          <div class="product-info">
+            <h3>${p.name}</h3>
+            <p>⭐ ${p.rating}</p>
+            <p>$${p.price}</p>
+            <button onclick="addToCart(${products.indexOf(
+              p
+            )})">Add to Cart</button>
+          </div>
+        </div>`;
+    })
+    .join("");
+}
+async function loadProducts() {
+  const res = await fetch("products.json");
+  products = await res.json();
+  saveData();
+  renderProducts();
+  renderHottestPicks();
+  renderLuxuryCarousel();
+}
+
+function renderLuxuryCarousel() {
+  const luxury = products.filter((p) => p.price >= 1000);
+  const track = document.getElementById("luxury-carousel");
+  track.innerHTML = luxury
+    .map((p, i) => {
+      const defaultColor = Object.keys(p.variant)[0];
+      const defaultImage = p.variant[defaultColor];
+      return `
+        <div class="product-card">
+          <img src="${defaultImage}" class="product-img" alt="${p.name}" />
+          <div class="product-info">
+            <h3>${p.name}</h3>
+            <p>⭐ ${p.rating}</p>
+            <p>$${p.price}</p>
+            <button onclick="addToCart(${products.indexOf(
+              p
+            )})">Add to Cart</button>
+          </div>
+        </div>`;
+    })
+    .join("");
+}
 
 window.onload = () => {
   loadProducts();
   renderCart();
+  renderHottestPicks();
+  renderLuxuryCarousel();
 };
+
+const carousel = document.getElementById("luxury-carousel");
+document.querySelector(".left-btn").addEventListener("click", () => {
+  carousel.scrollLeft -= 300;
+});
+document.querySelector(".right-btn").addEventListener("click", () => {
+  carousel.scrollLeft += 300;
+});
