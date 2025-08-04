@@ -8,6 +8,8 @@ async function loadProducts() {
   products = await res.json();
   saveData();
   renderProducts();
+  renderHottestPicks();
+  renderLuxuryCarousel();
 }
 
 function saveData() {
@@ -51,6 +53,7 @@ function renderProducts() {
     `;
   });
 }
+
 function changeVariant(productIndex, newImageUrl) {
   const img = document.getElementById(`img-${productIndex}`);
   img.src = newImageUrl;
@@ -58,6 +61,10 @@ function changeVariant(productIndex, newImageUrl) {
 
 function renderCart() {
   const cartBox = document.getElementById("cart-items");
+  if (cart.length === 0) {
+    cartBox.innerHTML = "<p>Your cart is empty.</p>";
+    return;
+  }
   cartBox.innerHTML = cart
     .map(
       (item, i) => `
@@ -69,9 +76,11 @@ function renderCart() {
         <button onclick="updateQty(${i}, 1)">+</button>
       </div>
       <span>$${item.price * item.qty}</span>
+      <button onclick="removeFromCart(${i})">❌</button>
     </div>`
     )
     .join("");
+  updateCartCount();
 }
 
 function updateQty(index, change) {
@@ -82,6 +91,24 @@ function updateQty(index, change) {
   }
   saveData();
   renderCart();
+  updateCartCount();
+}
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  saveData();
+  renderCart();
+  updateCartCount();
+}
+
+function clearCart() {
+  if (confirm("Are you sure you want to clear the entire cart?")) {
+    cart = [];
+    saveData();
+    renderCart();
+    updateCartCount();
+    showPopup("Cart has been emptied.");
+  }
 }
 
 function addToCart(index) {
@@ -94,6 +121,8 @@ function addToCart(index) {
   }
   saveData();
   renderCart();
+  updateCartCount();
+  showPopup(`${prod.name} added to cart!`);
   toggleCart();
 }
 
@@ -104,6 +133,7 @@ function checkout() {
   cart = [];
   saveData();
   renderCart();
+  updateCartCount();
 }
 
 function deleteProduct(index) {
@@ -216,14 +246,6 @@ function renderHottestPicks() {
     })
     .join("");
 }
-async function loadProducts() {
-  const res = await fetch("products.json");
-  products = await res.json();
-  saveData();
-  renderProducts();
-  renderHottestPicks();
-  renderLuxuryCarousel();
-}
 
 function renderLuxuryCarousel() {
   const luxury = products.filter((p) => p.price >= 1000);
@@ -253,15 +275,18 @@ window.onload = () => {
   renderCart();
   renderHottestPicks();
   renderLuxuryCarousel();
+  updateCartCount();
 };
 
 const carousel = document.getElementById("luxury-carousel");
-document.querySelector(".left-btn").addEventListener("click", () => {
-  carousel.scrollLeft -= 300;
-});
-document.querySelector(".right-btn").addEventListener("click", () => {
-  carousel.scrollLeft += 300;
-});
+if (carousel) {
+  document.querySelector(".left-btn").addEventListener("click", () => {
+    carousel.scrollLeft -= 300;
+  });
+  document.querySelector(".right-btn").addEventListener("click", () => {
+    carousel.scrollLeft += 300;
+  });
+}
 
 function showSection(sectionId) {
   document.querySelectorAll(".main-section").forEach((sec) => {
@@ -270,15 +295,10 @@ function showSection(sectionId) {
 
   document.getElementById(sectionId).classList.add("active");
 
-  // Hide/show the featured section
   const featuredSection = document.getElementById("highlighted-products");
-  if (sectionId === "product-list") {
-    featuredSection.style.display = "block";
-  } else {
-    featuredSection.style.display = "none";
-  }
+  featuredSection.style.display =
+    sectionId === "product-list" ? "block" : "none";
 
-  // Optional: reset admin/cart states
   adminVisible = sectionId === "admin-panel";
   cartVisible = sectionId === "cart-section";
 
@@ -291,14 +311,9 @@ function showSection(sectionId) {
 }
 
 function showHome() {
-  // Hide all sections
   document.getElementById("admin-panel").style.display = "none";
   document.getElementById("cart-section").style.display = "none";
-
-  // Show featured sections
   document.getElementById("highlighted-products").style.display = "block";
-
-  // Reset admin/cart flags and button text
   adminVisible = false;
   cartVisible = false;
   document.getElementById("admin-toggle-btn").innerText = " Admin Panel";
@@ -307,7 +322,6 @@ function showHome() {
 function setActive(buttonId) {
   const buttons = document.querySelectorAll(".nav-btn");
   buttons.forEach((btn) => btn.classList.remove("active"));
-
   const activeBtn = document.getElementById(buttonId);
   if (activeBtn) activeBtn.classList.add("active");
 }
@@ -316,12 +330,63 @@ function showPopup(message) {
   const popup = document.getElementById("custom-popup");
   document.getElementById("popup-message").innerText = message;
   popup.classList.add("show");
-
-  setTimeout(() => {
-    popup.classList.remove("show");
-  }, 3000); // Auto-hide after 3s
+  setTimeout(() => popup.classList.remove("show"), 3000);
 }
 
 function closePopup() {
   document.getElementById("custom-popup").classList.remove("show");
+}
+
+function updateCartCount() {
+  const cartCountEl = document.getElementById("cart-count");
+  let totalItems = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
+  cartCountEl.textContent = totalItems;
+  cartCountEl.classList.add("animate");
+  setTimeout(() => cartCountEl.classList.remove("animate"), 300);
+}
+
+function searchProducts() {
+  const searchValue = document
+    .getElementById("searchInput")
+    .value.toLowerCase();
+  const filtered = products.filter((product) =>
+    product.name.toLowerCase().includes(searchValue)
+  );
+  renderFilteredProducts(filtered);
+}
+
+function renderFilteredProducts(filteredProducts) {
+  const productList = document.getElementById("product-list");
+  productList.innerHTML = "";
+  filteredProducts.forEach((p, i) => {
+    const defaultVariant = Object.keys(p.variant)[0];
+    const defaultImage = p.variant[defaultVariant];
+
+    productList.innerHTML += `
+      <div class="product-card" id="product-${i}">
+        <img src="${defaultImage}" alt="${
+      p.name
+    }" class="product-img" id="img-${i}" />
+        <div class="product-info">
+          <h3>${p.name}</h3>
+          <p>⭐ ${p.rating}</p>
+          <p>$${p.price}</p>
+          <div class="variant-buttons">
+            ${Object.entries(p.variant)
+              .map(
+                ([color, imgUrl]) => `
+              <button onclick="changeVariant(${i}, '${imgUrl}')">${color}</button>`
+              )
+              .join("")}
+          </div>
+          <button onclick="addToCart(${i})">Add to Cart</button>
+        </div>
+        ${
+          adminVisible
+            ? `<button class="delete-btn" onclick="deleteProduct(${i})">🗑 Delete</button>`
+            : ""
+        }
+      </div>
+    `;
+  });
 }

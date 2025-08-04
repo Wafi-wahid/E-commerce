@@ -1,9 +1,11 @@
+/* ================= GLOBAL SETTINGS ================= */
 body {
   font-family: sans-serif;
   margin: 0;
   background: #f3f3f3;
 }
 
+/* ================= HEADER ================= */
 header {
   background: #222;
   color: #fff;
@@ -23,8 +25,14 @@ header {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
+.header-buttons button:hover {
+  background: #555;
+}
+
+/* ================= MAIN LAYOUT ================= */
 main {
   display: flex;
   gap: 1rem;
@@ -33,29 +41,35 @@ main {
   justify-content: center;
 }
 
+/* ================= PRODUCT CARD ================= */
 .product-card {
   background: #fff;
   border-radius: 12px;
   padding: 1rem;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
   position: relative;
-  width: 100%; /* full width by default (mobile) */
-  max-width: 350px; /* base size */
+  width: 100%;
+  max-width: 350px;
   flex: 1 1 100px;
+  transition: transform 0.3s ease;
 }
 
+.product-card:hover {
+  transform: scale(1.02);
+}
+
+/* Responsive adjustments */
 @media (min-width: 768px) {
   .product-card {
     max-width: 400px;
-    height: auto;
   }
 }
 
 @media (min-width: 1024px) {
   .product-card {
-    width: 300px; /* ✅ Fixed width */
-    max-width: none; /* ✅ Remove max-width limit */
-    flex: 0 0 auto; /* ✅ No stretching */
+    width: 300px;
+    max-width: none;
+    flex: 0 0 auto;
   }
 }
 
@@ -64,10 +78,7 @@ main {
     max-width: 600px;
   }
 }
-.product-card:hover {
-  transform: scale(1.02);
-  transition: transform 0.3s ease;
-}
+
 .product-img {
   width: 100%;
   height: 200px;
@@ -79,23 +90,13 @@ main {
   margin-top: 1rem;
 }
 
-.product-info h3 {
-  margin: 0;
-}
-
+.product-info h3,
 .product-info p {
   margin: 0.5rem 0;
 }
 
-.product-card button {
-  margin-top: 0.5rem;
-  background: #222;
-  color: #fff;
-  border: none;
-  padding: 0.5rem 1rem;
-  cursor: pointer;
-  border-radius: 4px;
-}
+/* Button (reuseable style) */
+.product-card button,
 .button-style {
   margin-top: 0.5rem;
   background: #222;
@@ -104,13 +105,20 @@ main {
   padding: 0.5rem 1rem;
   cursor: pointer;
   border-radius: 4px;
+  transition: background-color 0.3s ease;
 }
 
+.product-card button:hover,
+.button-style:hover {
+  background-color: #444;
+}
+
+/* Delete button inside card */
 .delete-btn {
   position: absolute;
   top: 10px;
   right: 10px;
-  background-color: black; /* Default color */
+  background-color: black;
   color: white;
   border: none;
   padding: 5px 10px;
@@ -121,8 +129,10 @@ main {
 }
 
 .delete-btn:hover {
-  background-color: red; /* Hover color */
+  background-color: red;
 }
+
+/* ================= CART & ADMIN PANEL ================= */
 .cart,
 .admin-panel {
   background: #fff;
@@ -132,15 +142,13 @@ main {
   max-width: 600px;
   margin: 1rem auto;
   box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
-
-  /* Center inner content */
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
 }
 
+/* ================= INPUTS ================= */
 input,
 select {
   padding: 0.5rem;
@@ -150,6 +158,7 @@ select {
   border-radius: 4px;
 }
 
+/* ================= CART ================= */
 .cart-item {
   display: flex;
   justify-content: space-between;
@@ -170,6 +179,8 @@ select {
   border-radius: 4px;
   cursor: pointer;
 }
+
+/* ================= VARIANT FIELDS ================= */
 .variant-buttons {
   margin: 0.5rem 0;
 }
@@ -179,6 +190,7 @@ select {
   padding: 5px 10px;
   border: 1px solid #ccc;
   background: #6b6969;
+  color: #fff;
   cursor: pointer;
   border-radius: 5px;
   transition: background 0.3s;
@@ -186,6 +198,7 @@ select {
 
 .variant-buttons button:hover {
   background: #ddd;
+  color: #000;
 }
 
 .variant-input {
@@ -193,10 +206,12 @@ select {
   gap: 10px;
   margin-bottom: 0.5rem;
 }
+
 .variant-input input {
   flex: 1;
 }
 
+/* ================= HERO SLIDER ================= */
 .hero-slider {
   width: 100%;
   height: 400px;
@@ -207,7 +222,7 @@ select {
 
 .slider-track {
   display: flex;
-  width: 50%; /* assuming 3 images; adjust accordingly */
+  width: 50%;
   animation: slideHero 12s infinite ease-in-out;
 }
 
@@ -218,7 +233,7 @@ select {
   flex-shrink: 0;
 }
 
-/* Animation */
+/* Slider Animation */
 @keyframes slideHero {
   0%,
   10% {
@@ -253,11 +268,13 @@ select {
   }
 }
 
+/* ================= SECTIONS & CAROUSELS ================= */
 .hottest-picks,
 .carousel {
   padding: 2rem;
   text-align: center;
 }
+
 .product-row {
   display: flex;
   flex-wrap: wrap;
@@ -265,43 +282,33 @@ select {
   gap: 2rem;
   margin-top: 1rem;
 }
+
 .carousel-wrapper {
   overflow-x: auto;
   white-space: nowrap;
   scroll-snap-type: x mandatory;
 }
+
 .carousel-track {
   display: inline-flex;
   gap: 1rem;
   padding: 1rem;
 }
+
 .carousel-track .product-card {
   scroll-snap-align: start;
   width: 250px;
   flex-shrink: 0;
 }
-.popup {
-  display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #00000080;
-  justify-content: center;
-  align-items: center;
-}
-.popup-box {
-  background: #fff;
-  padding: 2rem;
-  border-radius: 10px;
-}
+
+/* Carousel with arrows */
 .carousel-container {
   position: relative;
   overflow: hidden;
   display: flex;
   align-items: center;
 }
+
 .luxury-carousel {
   display: flex;
   overflow-x: auto;
@@ -309,6 +316,7 @@ select {
   gap: 1rem;
   padding: 1rem;
 }
+
 .carousel-btn {
   position: absolute;
   top: 40%;
@@ -317,16 +325,19 @@ select {
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 50%;
 }
+
 .left-btn {
   left: 0;
 }
+
 .right-btn {
   right: 0;
 }
 
-/* ========== GLOBAL ANIMATIONS ========== */
-
+/* ================= ANIMATIONS ================= */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -355,18 +366,7 @@ select {
   animation: slideUp 0.8s ease forwards;
 }
 
-/* Apply to sections */
-section,
-.card,
-.btn,
-header,
-footer {
-  opacity: 0;
-  animation: fadeIn 1s ease forwards;
-  animation-delay: 0.2s;
-}
-
-/* Delay for staggered effect (optional) */
+/* Delay for staggered effect */
 section:nth-child(2) {
   animation-delay: 0.4s;
 }
@@ -374,20 +374,9 @@ section:nth-child(3) {
   animation-delay: 0.6s;
 }
 
-.btn:hover {
-  transform: scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-}
-
+/* ================= HIGHLIGHTED PRODUCTS ================= */
 #highlighted-products {
   display: none;
-}
-
-#highlighted-products.show {
-  display: block;
-}
-
-#highlighted-products {
   transition: all 0.4s ease;
   opacity: 1;
 }
@@ -399,6 +388,7 @@ section:nth-child(3) {
   overflow: hidden;
 }
 
+/* ================= FOOTER ================= */
 .site-footer {
   background-color: #111;
   color: #ccc;
@@ -428,18 +418,14 @@ section:nth-child(3) {
   color: #fff;
 }
 
-.nav-btn.active {
-  background-color: #008cba;
-  color: #fff;
-  font-weight: bold;
-  border: 1px solid #006b95;
-}
-.popup-overlay {
+/* ================= POPUPS ================= */
+.popup-overlay,
+.popup {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   background: rgba(0, 0, 0, 0.5);
   display: none;
   justify-content: center;
@@ -453,7 +439,7 @@ section:nth-child(3) {
 
 .popup-box {
   background: white;
-  padding: 1.5rem;
+  padding: 1.5rem 2rem;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   text-align: center;
@@ -468,4 +454,74 @@ section:nth-child(3) {
   padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
+}
+
+/* ================= SEARCH ================= */
+.search-filter {
+  margin: 10px 0;
+}
+
+.search-filter input {
+  padding: 5px 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* ================= CART BADGE ================= */
+.cart-wrapper {
+  position: relative;
+}
+
+.cart-count-badge {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  transition: transform 0.2s ease;
+}
+
+.cart-count-badge.animate,
+#cart-count.animate {
+  animation: bounce 0.3s ease;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.4);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ================= CLEAR CART BUTTON ================= */
+.clear-cart-btn {
+  margin-top: 1rem;
+  padding: 10px 15px;
+  background-color: #9a9595;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.clear-cart-btn:hover {
+  background-color: #e60000;
+}
+
+/* ================= NAV BUTTON ACTIVE STATE ================= */
+.nav-btn.active {
+  background-color: #008cba;
+  color: #fff;
+  font-weight: bold;
+  border: 1px solid #006b95;
 }

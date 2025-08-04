@@ -11,10 +11,21 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- Header Pannel-->
+    <!-- ======================= HEADER ======================= -->
     <header>
       <h1><i class="fas fa-shopping-bag"></i> The Skyler Store</h1>
 
+      <!-- Search input -->
+      <div class="search-filter">
+        <input
+          type="text"
+          id="searchInput"
+          placeholder="Search products..."
+          oninput="searchProducts()"
+        />
+      </div>
+
+      <!-- Navigation buttons -->
       <div class="header-buttons">
         <button class="nav-btn" onclick="showHome()" id="home-btn">
           <i class="fas fa-home"></i> Home
@@ -22,9 +33,18 @@
         <button class="nav-btn" onclick="showAllProducts()" id="products-btn">
           <i class="fas fa-box"></i> Products
         </button>
-        <button class="nav-btn" onclick="toggleCart()" id="cart-btn">
+
+        <!-- Cart button with count badge -->
+        <button
+          class="nav-btn cart-wrapper"
+          onclick="toggleCart()"
+          id="cart-btn"
+        >
           <i class="fas fa-shopping-cart"></i> Cart
+          <span id="cart-count" class="cart-count-badge">0</span>
         </button>
+
+        <!-- Admin panel access button -->
         <button
           class="nav-btn"
           id="admin-toggle-btn"
@@ -35,7 +55,7 @@
       </div>
     </header>
 
-    <!-- Hero Image -->
+    <!-- ======================= HERO SLIDER ======================= -->
     <section class="hero-slider slide-up">
       <div class="slider-track">
         <img src="./h1.jpg" alt="Hero 0" class="hero-img" />
@@ -49,14 +69,13 @@
       </div>
     </section>
 
+    <!-- ======================= FEATURED PRODUCTS ======================= -->
     <div id="highlighted-products">
-      <!-- Hottest Picks -->
       <section class="hottest-picks fade-in">
         <h2>| Hottest Picks |</h2>
         <div id="hottest-picks" class="product-row"></div>
       </section>
 
-      <!-- Luxury Carousel -->
       <section class="carousel slide-up">
         <h2>| Luxury Collection |</h2>
         <div class="carousel-container">
@@ -71,21 +90,24 @@
       </section>
     </div>
 
-    <!-- All Products -->
+    <!-- ======================= ALL PRODUCTS ======================= -->
     <section class="all-products slide-up">
       <h2 style="text-align: center">| All Products |</h2>
     </section>
-    <main id="product-list"></main>
+    <main id="product-list" class="slide-up"></main>
 
-    <!-- Cart Pannel-->
+    <!-- ======================= CART PANEL ======================= -->
     <div class="cart" id="cart-section" style="display: none">
       <h2><i class="fas fa-shopping-cart"></i> Your Cart</h2>
-
       <div id="cart-items"></div>
+      <button onclick="clearCart()" class="clear-cart-btn">
+        🗑️ Clear Cart
+      </button>
+
       <button class="button-style" onclick="checkout()">Checkout</button>
     </div>
 
-    <!-- Admin Pannel-->
+    <!-- ======================= ADMIN PANEL ======================= -->
     <div class="admin-panel" id="admin-panel" style="display: none">
       <h2><i class="fas fa-cogs"></i> Admin Panel</h2>
 
@@ -99,6 +121,7 @@
           required
         />
 
+        <!-- Product variant fields -->
         <div id="variant-container">
           <div class="variant-input">
             <input
@@ -123,21 +146,9 @@
       </form>
     </div>
 
-    <div
-      id="password-popup"
-      style="
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #00000080;
-        justify-content: center;
-        align-items: center;
-      "
-    >
-      <div style="background: #fff; padding: 2rem; border-radius: 10px">
+    <!-- ======================= PASSWORD POPUP ======================= -->
+    <div id="password-popup" class="popup-overlay" style="display: none">
+      <div class="popup-box">
         <h3>Enter Admin Password</h3>
         <p>password: admin123</p>
         <input type="password" id="admin-password" placeholder="Password" />
@@ -148,6 +159,7 @@
       </div>
     </div>
 
+    <!-- ======================= FOOTER ======================= -->
     <footer class="site-footer">
       <div class="footer-content">
         <p>&copy; 2025 Skyler Store. All rights reserved.</p>
@@ -158,6 +170,8 @@
         </div>
       </div>
     </footer>
+
+    <!-- ======================= GENERAL POPUP ======================= -->
     <div id="custom-popup" class="popup-overlay">
       <div class="popup-box">
         <p id="popup-message">This is a popup</p>
@@ -165,6 +179,7 @@
       </div>
     </div>
 
+    <!-- ======================= ADMIN AUTH SCRIPT ======================= -->
     <script>
       const ADMIN_PASS = "admin123"; // set your password here
 
@@ -187,6 +202,8 @@
         document.getElementById("admin-password").value = "";
       }
     </script>
+
+    <!-- ======================= MAIN SCRIPT ======================= -->
     <script src="main.js"></script>
   </body>
 </html>
