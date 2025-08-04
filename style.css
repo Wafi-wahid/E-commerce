@@ -29,7 +29,7 @@ header {
 }
 
 .header-buttons button:hover {
-  background: #555;
+  background: #a7aaac;
 }
 
 /* ================= MAIN LAYOUT ================= */
@@ -503,14 +503,13 @@ section:nth-child(3) {
 
 /* ================= CLEAR CART BUTTON ================= */
 .clear-cart-btn {
-  margin-top: 1rem;
-  padding: 10px 15px;
-  background-color: #9a9595;
-  color: white;
+  margin-top: 0.5rem;
+  background: #222;
+  color: #fff;
   border: none;
-  border-radius: 5px;
-  font-weight: bold;
+  padding: 0.5rem 1rem;
   cursor: pointer;
+  border-radius: 4px;
   transition: background-color 0.3s ease;
 }
 

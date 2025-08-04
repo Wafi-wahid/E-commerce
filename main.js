@@ -1,8 +1,34 @@
+// ---------- GLOBAL VARIABLES ----------
 let products = [];
 let cart = JSON.parse(localStorage.getItem("cart")) || [];
-let adminVisible = false;
-let cartVisible = false;
 
+function resetView() {
+  document.getElementById("highlighted-products").style.display = "none";
+  document.getElementById("product-list").style.display = "none";
+  document.getElementById("cart-section").style.display = "none";
+  document.getElementById("admin-panel").style.display = "none";
+
+  // Reset flags
+  adminVisible = false;
+  cartVisible = false;
+
+  // Reset active nav button
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach((btn) => btn.classList.remove("active"));
+}
+
+// ---------- INITIALIZATION ----------
+window.onload = () => {
+  loadProducts();
+  renderCart();
+  renderHottestPicks();
+  renderLuxuryCarousel();
+  updateCartCount();
+  showHome(); // default to home
+};
+
+// ---------- PRODUCT LOGIC ----------
 async function loadProducts() {
   const res = await fetch("products.json");
   products = await res.json();
@@ -59,12 +85,14 @@ function changeVariant(productIndex, newImageUrl) {
   img.src = newImageUrl;
 }
 
+// ---------- CART LOGIC ----------
 function renderCart() {
   const cartBox = document.getElementById("cart-items");
   if (cart.length === 0) {
     cartBox.innerHTML = "<p>Your cart is empty.</p>";
     return;
   }
+
   cartBox.innerHTML = cart
     .map(
       (item, i) => `
@@ -77,10 +105,31 @@ function renderCart() {
       </div>
       <span>$${item.price * item.qty}</span>
       <button onclick="removeFromCart(${i})">❌</button>
-    </div>`
+    </div>
+  `
     )
     .join("");
+  const total = cart.reduce((sum, item) => sum + item.price * item.qty, 0);
+  cartBox.innerHTML += `<div><strong>Total: $${total.toFixed(
+    2
+  )}</strong></div>`;
+
   updateCartCount();
+}
+
+function addToCart(index) {
+  const prod = products[index];
+  const found = cart.find((p) => p.name === prod.name);
+  if (found) {
+    found.qty++;
+  } else {
+    cart.push({ ...prod, qty: 1 });
+  }
+  saveData();
+  renderCart();
+  updateCartCount();
+  showPopup(`${prod.name} added to cart!`);
+  toggleCart();
 }
 
 function updateQty(index, change) {
@@ -111,19 +160,12 @@ function clearCart() {
   }
 }
 
-function addToCart(index) {
-  const prod = products[index];
-  const found = cart.find((p) => p.name === prod.name);
-  if (found) {
-    found.qty++;
-  } else {
-    cart.push({ ...prod, qty: 1 });
-  }
-  saveData();
-  renderCart();
-  updateCartCount();
-  showPopup(`${prod.name} added to cart!`);
-  toggleCart();
+function updateCartCount() {
+  const cartCountEl = document.getElementById("cart-count");
+  let totalItems = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
+  cartCountEl.textContent = totalItems;
+  cartCountEl.classList.add("animate");
+  setTimeout(() => cartCountEl.classList.remove("animate"), 300);
 }
 
 function checkout() {
@@ -136,43 +178,85 @@ function checkout() {
   updateCartCount();
 }
 
-function deleteProduct(index) {
-  products.splice(index, 1);
-  saveData();
-  renderProducts();
-  showPopup("Product deleted successfully!");
+// ---------- SEARCH / FILTER ----------
+function searchProducts() {
+  const searchValue = document
+    .getElementById("searchInput")
+    .value.toLowerCase();
+  const filtered = products.filter((product) =>
+    product.name.toLowerCase().includes(searchValue)
+  );
+  renderFilteredProducts(filtered);
 }
 
+function renderFilteredProducts(filteredProducts) {
+  const productList = document.getElementById("product-list");
+  productList.innerHTML = "";
+
+  filteredProducts.forEach((p, i) => {
+    const defaultVariant = Object.keys(p.variant)[0];
+    const defaultImage = p.variant[defaultVariant];
+
+    productList.innerHTML += `
+      <div class="product-card" id="product-${i}">
+        <img src="${defaultImage}" alt="${
+      p.name
+    }" class="product-img" id="img-${i}" />
+        <div class="product-info">
+          <h3>${p.name}</h3>
+          <p>⭐ ${p.rating}</p>
+          <p>$${p.price}</p>
+          <div class="variant-buttons">
+            ${Object.entries(p.variant)
+              .map(
+                ([color, imgUrl]) =>
+                  `<button onclick="changeVariant(${i}, '${imgUrl}')">${color}</button>`
+              )
+              .join("")}
+          </div>
+          <button onclick="addToCart(${i})">Add to Cart</button>
+        </div>
+        ${
+          adminVisible
+            ? `<button class="delete-btn" onclick="deleteProduct(${i})">🗑 Delete</button>`
+            : ""
+        }
+      </div>
+    `;
+  });
+}
+
+// ---------- ADMIN / UI TOGGLE ----------
 function toggleAdmin() {
-  adminVisible = !adminVisible;
-  cartVisible = false;
-
-  document.getElementById("admin-panel").style.display = adminVisible
-    ? "block"
-    : "none";
-  document.getElementById("product-list").style.display = adminVisible
-    ? "flex"
-    : "flex";
-  document.getElementById("cart-section").style.display = "none";
-
-  renderProducts();
+  resetView();
+  adminVisible = true;
+  document.getElementById("product-list").style.display = "flex";
+  document.getElementById("admin-panel").style.display = "block";
+  document.getElementById("admin-toggle-btn").innerText = " Products";
+  document.getElementById("admin-btn").classList.add("active");
 }
-
 function toggleCart() {
-  cartVisible = !cartVisible;
-  adminVisible = false;
-
-  document.getElementById("cart-section").style.display = cartVisible
-    ? "block"
-    : "none";
-  document.getElementById("admin-panel").style.display = "none";
-  document.getElementById("product-list").style.display = cartVisible
-    ? "none"
-    : "flex";
-
-  document.getElementById("admin-toggle-btn").innerText = " Admin Panel";
+  resetView();
+  document.getElementById("cart-section").style.display = "block";
+  document.getElementById("cart-btn").classList.add("active");
 }
 
+function showHome() {
+  resetView();
+  document.getElementById("highlighted-products").style.display = "block";
+  document.getElementById("product-list").style.display = "flex";
+  document.getElementById("admin-toggle-btn").innerText = " Admin Panel";
+  document.getElementById("home-btn").classList.add("active");
+}
+
+function showAllProducts() {
+  resetView();
+  document.getElementById("product-list").style.display = "flex";
+  document.getElementById("admin-toggle-btn").innerText = " Admin Panel";
+  document.getElementById("products-btn").classList.add("active");
+}
+
+// ---------- ADMIN PRODUCT FORM ----------
 document.getElementById("admin-form").addEventListener("submit", function (e) {
   e.preventDefault();
   const name = document.getElementById("name").value;
@@ -214,21 +298,19 @@ function addVariantField() {
   container.insertAdjacentHTML("beforeend", fieldHTML);
 }
 
-function showAllProducts() {
-  adminVisible = false;
-  cartVisible = false;
-  document.getElementById("admin-panel").style.display = "none";
-  document.getElementById("cart-section").style.display = "none";
-  document.getElementById("product-list").style.display = "flex";
-  document.getElementById("admin-toggle-btn").innerText = "Admin Panel";
+function deleteProduct(index) {
+  products.splice(index, 1);
+  saveData();
   renderProducts();
+  showPopup("Product deleted successfully!");
 }
 
+// ---------- SPECIAL RENDERING (Hottest + Carousel) ----------
 function renderHottestPicks() {
   const hottest = [...products].sort((a, b) => b.price - a.price).slice(0, 3);
   const container = document.getElementById("hottest-picks");
   container.innerHTML = hottest
-    .map((p, i) => {
+    .map((p) => {
       const defaultColor = Object.keys(p.variant)[0];
       const defaultImage = p.variant[defaultColor];
       return `
@@ -251,7 +333,7 @@ function renderLuxuryCarousel() {
   const luxury = products.filter((p) => p.price >= 1000);
   const track = document.getElementById("luxury-carousel");
   track.innerHTML = luxury
-    .map((p, i) => {
+    .map((p) => {
       const defaultColor = Object.keys(p.variant)[0];
       const defaultImage = p.variant[defaultColor];
       return `
@@ -270,58 +352,29 @@ function renderLuxuryCarousel() {
     .join("");
 }
 
-window.onload = () => {
-  loadProducts();
-  renderCart();
-  renderHottestPicks();
-  renderLuxuryCarousel();
-  updateCartCount();
-};
-
-const carousel = document.getElementById("luxury-carousel");
-if (carousel) {
-  document.querySelector(".left-btn").addEventListener("click", () => {
-    carousel.scrollLeft -= 300;
-  });
-  document.querySelector(".right-btn").addEventListener("click", () => {
-    carousel.scrollLeft += 300;
-  });
-}
-
+// ---------- UI HELPERS ----------
 function showSection(sectionId) {
-  document.querySelectorAll(".main-section").forEach((sec) => {
-    sec.classList.remove("active");
-  });
-
+  document
+    .querySelectorAll(".main-section")
+    .forEach((sec) => sec.classList.remove("active"));
   document.getElementById(sectionId).classList.add("active");
 
-  const featuredSection = document.getElementById("highlighted-products");
-  featuredSection.style.display =
+  document.getElementById("highlighted-products").style.display =
     sectionId === "product-list" ? "block" : "none";
 
   adminVisible = sectionId === "admin-panel";
   cartVisible = sectionId === "cart-section";
-
   document.getElementById("admin-toggle-btn").innerText = adminVisible
     ? " Products"
     : " Admin Panel";
-
   renderProducts();
   renderCart();
 }
 
-function showHome() {
-  document.getElementById("admin-panel").style.display = "none";
-  document.getElementById("cart-section").style.display = "none";
-  document.getElementById("highlighted-products").style.display = "block";
-  adminVisible = false;
-  cartVisible = false;
-  document.getElementById("admin-toggle-btn").innerText = " Admin Panel";
-}
-
 function setActive(buttonId) {
-  const buttons = document.querySelectorAll(".nav-btn");
-  buttons.forEach((btn) => btn.classList.remove("active"));
+  document
+    .querySelectorAll(".nav-btn")
+    .forEach((btn) => btn.classList.remove("active"));
   const activeBtn = document.getElementById(buttonId);
   if (activeBtn) activeBtn.classList.add("active");
 }
@@ -337,56 +390,29 @@ function closePopup() {
   document.getElementById("custom-popup").classList.remove("show");
 }
 
-function updateCartCount() {
-  const cartCountEl = document.getElementById("cart-count");
-  let totalItems = cart.reduce((sum, item) => sum + (item.qty || 0), 0);
-  cartCountEl.textContent = totalItems;
-  cartCountEl.classList.add("animate");
-  setTimeout(() => cartCountEl.classList.remove("animate"), 300);
-}
-
-function searchProducts() {
-  const searchValue = document
-    .getElementById("searchInput")
-    .value.toLowerCase();
-  const filtered = products.filter((product) =>
-    product.name.toLowerCase().includes(searchValue)
-  );
-  renderFilteredProducts(filtered);
-}
-
-function renderFilteredProducts(filteredProducts) {
-  const productList = document.getElementById("product-list");
-  productList.innerHTML = "";
-  filteredProducts.forEach((p, i) => {
-    const defaultVariant = Object.keys(p.variant)[0];
-    const defaultImage = p.variant[defaultVariant];
-
-    productList.innerHTML += `
-      <div class="product-card" id="product-${i}">
-        <img src="${defaultImage}" alt="${
-      p.name
-    }" class="product-img" id="img-${i}" />
-        <div class="product-info">
-          <h3>${p.name}</h3>
-          <p>⭐ ${p.rating}</p>
-          <p>$${p.price}</p>
-          <div class="variant-buttons">
-            ${Object.entries(p.variant)
-              .map(
-                ([color, imgUrl]) => `
-              <button onclick="changeVariant(${i}, '${imgUrl}')">${color}</button>`
-              )
-              .join("")}
-          </div>
-          <button onclick="addToCart(${i})">Add to Cart</button>
-        </div>
-        ${
-          adminVisible
-            ? `<button class="delete-btn" onclick="deleteProduct(${i})">🗑 Delete</button>`
-            : ""
-        }
-      </div>
-    `;
+// ---------- CAROUSEL SCROLL ----------
+const carousel = document.getElementById("luxury-carousel");
+if (carousel) {
+  document.querySelector(".left-btn").addEventListener("click", () => {
+    carousel.scrollLeft -= 300;
   });
+  document.querySelector(".right-btn").addEventListener("click", () => {
+    carousel.scrollLeft += 300;
+  });
+}
+
+// ---------- Password Check ----------
+function promptPassword() {
+  document.getElementById("password-popup").style.display = "flex";
+}
+
+function checkPassword() {
+  const input = document.getElementById("admin-password").value;
+  if (input === "admin123") {
+    document.getElementById("password-popup").style.display = "none";
+    toggleAdmin();
+    showPopup("Welcome Admin! 👑");
+  } else {
+    showPopup("Incorrect password!");
+  }
 }
