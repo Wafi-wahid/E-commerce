@@ -1,2 +1,2 @@
 Deployed here:
-https://mellifluous-snickerdoodle-d4ffbb.netlify.app/
+https://stately-paprenjak-6fa30d.netlify.app/
